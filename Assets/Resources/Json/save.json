@@ -1,5 +1,5 @@
 {
-  "maxDistanceMeters": 4,
-  "maxDistanceCentimeters": 20,
-  "maxDistance": 420
+  "maxDistanceMeters": 1,
+  "maxDistanceCentimeters": 91,
+  "maxDistance": 191
 }

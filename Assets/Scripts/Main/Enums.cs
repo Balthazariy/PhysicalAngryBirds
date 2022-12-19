@@ -1,20 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Enums
+﻿public class Enums
 {
     public enum BallType
     {
         TennisBall,
         SoccerBall,
-        Baseball
+        Baseball,
     }
 
     public enum RubberType
     {
         YellowRubber,
         BlueRubber,
-        RedRubber
+        RedRubber,
     }
 }

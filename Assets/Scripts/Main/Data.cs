@@ -1,9 +1,8 @@
-﻿using System;
-using System.IO;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System.Collections;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 [Serializable]
@@ -12,7 +11,7 @@ public class Data
     public int distanceMeters { get; set; }
     public int distanceCentimeters { get; set; }
     public int distanceTravel { get; set; }
-    
+
     public float pullBack { get; set; }
     public float launchAngle { get; set; }
 
@@ -42,8 +41,6 @@ public class GameDataSerializeHelper
 public class SaveData
 {
     private string _savePathOne = @"Assets/Resources/Json/save.json";
-    private string _savePathTwo = @"Assets/Resources/Json/load.json";
-
     private List<string> paths = new List<string>
     {
         @"Assets/Resources/Json/save",
@@ -81,8 +78,8 @@ public class SaveData
         var serializer = new JsonSerializer();
         serializer.Formatting = Formatting.Indented;
 
-        using(var sw = new StreamWriter(_savePathOne))
-        using(JsonWriter writer = new JsonTextWriter(sw))
+        using (var sw = new StreamWriter(_savePathOne))
+        using (JsonWriter writer = new JsonTextWriter(sw))
         {
             serializer.Serialize(writer, obj);
         }
