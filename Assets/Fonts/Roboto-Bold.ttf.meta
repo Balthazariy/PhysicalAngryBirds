@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0038784c35b27fb43bc492c50afa713a
+guid: 7d33f6fc191b65e439b342a04d9577e6
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,8 +9,12 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Microsoft Tai Le
-  fallbackFontReferences: []
+  - Roboto
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 95958b1d158eae94ca9ba2e926940520, type: 3}
+  - {fileID: 12800000, guid: cb939d2faf3580d44bc689161e26be03, type: 3}
+  - {fileID: 12800000, guid: 11f8fbe7572c16142a50984e4b4e4396, type: 3}
+  - {fileID: 12800000, guid: d759c3599e7c76d42a123150b285e9f3, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
