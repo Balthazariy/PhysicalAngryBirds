@@ -13,7 +13,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Gameplay
   - Water
   - UI
   - 
@@ -46,12 +46,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: UI
-    uniqueID: 3101915589
+  - name: Background
+    uniqueID: 1592632979
     locked: 0
-  - name: Game
-    uniqueID: 474781887
+  - name: Gameplay
+    uniqueID: 430366793
     locked: 0
-  - name: BG
-    uniqueID: 3324261207
+  - name: Pages
+    uniqueID: 1486878019
+    locked: 0
+  - name: Popups
+    uniqueID: 1152435663
     locked: 0
