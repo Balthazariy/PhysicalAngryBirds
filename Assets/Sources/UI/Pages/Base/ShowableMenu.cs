@@ -1,9 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using DG.Tweening;
+using System;
+using UnityEngine;
+using Balthazariy.Settings;
 
 namespace Balthazariy.UI
 {
@@ -15,13 +13,13 @@ namespace Balthazariy.UI
         public event Action OnHideEvent;
 
         private bool _isShowing;
-        [SerializeField] private string _menuType;
+        [SerializeField] private MenuTypeEnumerators _menuType;
 
         public bool IsActive => _isShowing;
 
-        public string MenuType => _menuType;
+        public MenuTypeEnumerators MenuType => _menuType;
 
-        public GameObject ActivePage => CanvasGroup.gameObject;
+        public GameObject SelfObject => CanvasGroup.gameObject;
 
         public void Show()
         {
@@ -31,8 +29,8 @@ namespace Balthazariy.UI
 
             OnShowEvent?.Invoke();
 
-            ActivePage.transform.localPosition = new Vector3(0, ActivePage.transform.position.y - (Screen.height / 2), 0);
-            ActivePage.transform.DOLocalMoveY(0, 0.5f);
+            SelfObject.transform.localPosition = new Vector3(0, SelfObject.transform.position.y - (Screen.height / 2), 0);
+            SelfObject.transform.DOLocalMoveY(0, 0.5f);
         }
 
         public void Hide()
@@ -43,8 +41,8 @@ namespace Balthazariy.UI
 
             OnHideEvent?.Invoke();
 
-            ActivePage.transform.localPosition = new Vector3(0, 0, 0);
-            ActivePage.transform.DOLocalMoveY(ActivePage.transform.position.y - (Screen.height / 2), 0.5f);
+            SelfObject.transform.localPosition = new Vector3(0, 0, 0);
+            SelfObject.transform.DOLocalMoveY(SelfObject.transform.position.y - (Screen.height / 2), 0.5f);
         }
 
 

@@ -7,5 +7,4 @@ namespace Balthazariy.Utilities
         OneSecTimer,
         UnscaledOneSecTimer,
     }
-
 }

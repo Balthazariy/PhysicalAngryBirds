@@ -1,5 +1,5 @@
+using Balthazariy.Settings;
 using System;
-using UnityEngine;
 
 namespace Balthazariy.UI
 {
@@ -9,7 +9,7 @@ namespace Balthazariy.UI
 
         protected bool _isShowing = false;
 
-        public event Action<string> OnScreenChangeRequestedEvent;
+        public event Action<MenuTypeEnumerators> OnScreenChangeRequestedEvent;
 
         public virtual void Show()
         {
@@ -25,9 +25,8 @@ namespace Balthazariy.UI
             ShowableMenu.Hide();
         }
 
-        public void InvokeScreenChange(string screen)
+        public void InvokeScreenChange(MenuTypeEnumerators screen)
         {
-            //Debug.Log($"Screenchange requested: {screen}");
             OnScreenChangeRequestedEvent?.Invoke(screen);
         }
     }

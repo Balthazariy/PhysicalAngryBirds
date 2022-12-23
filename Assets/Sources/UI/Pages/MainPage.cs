@@ -1,3 +1,4 @@
+using Balthazariy.Settings;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,7 +34,7 @@ namespace Balthazariy.UI.Pages
         #region Button Handlers
         private void PlayButtonOnClickHandler()
         {
-            InvokeScreenChange("GameplayPage");
+            InvokeScreenChange(MenuTypeEnumerators.GameplayPage);
         }
 
         private void SettingsButtonOnClickHandler()

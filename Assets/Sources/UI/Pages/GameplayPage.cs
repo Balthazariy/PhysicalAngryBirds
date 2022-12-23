@@ -1,6 +1,3 @@
-using Balthazariy.UI;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,7 +20,7 @@ namespace Balthazariy.UI
         #region Button Handlers
         private void PauseButtonOnClickHandler()
         {
-            InvokeScreenChange("MainPage");
+            InvokeScreenChange(Settings.MenuTypeEnumerators.MainPage);
         }
         #endregion
     }
