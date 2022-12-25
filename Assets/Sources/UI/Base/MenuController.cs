@@ -7,11 +7,17 @@ namespace Balthazariy.UI
     public class MenuController : MonoBehaviour
     {
         [SerializeField] private List<ShowableMenuController> _menus = new List<ShowableMenuController>();
+        [SerializeField] private GameObject _overlayPanelObject;
 
         private void OnEnable()
         {
             foreach (var menu in _menus)
+            {
                 menu.OnScreenChangeRequestedEvent += OnScreenChangeRequestedEventHandler;
+                menu.Hide();
+            }
+
+            _menus.Find(name => name.ShowableMenu.MenuType == MenuTypeEnumerators.MainPage).Show();
         }
 
         private void OnDisable()
@@ -32,6 +38,8 @@ namespace Balthazariy.UI
             var targetMenu = _menus.Find(name => name.ShowableMenu.MenuType == value);
 
             activeMenu.Hide();
+
+            _overlayPanelObject.SetActive(targetMenu.ShowableMenu.NeedOverlay);
 
             targetMenu.Show();
         }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Balthazariy.Utilities
 {
-    public class SafeAreaChecker : MonoBehaviour
+    public class SafeAreaCheckerUtility : MonoBehaviour
     {
         private void Awake()
         {

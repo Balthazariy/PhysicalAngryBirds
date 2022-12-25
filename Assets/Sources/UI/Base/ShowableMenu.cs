@@ -1,7 +1,7 @@
+using Balthazariy.Settings;
 using DG.Tweening;
 using System;
 using UnityEngine;
-using Balthazariy.Settings;
 
 namespace Balthazariy.UI
 {
@@ -14,8 +14,10 @@ namespace Balthazariy.UI
 
         private bool _isShowing;
         [SerializeField] private MenuTypeEnumerators _menuType;
+        [SerializeField] private bool _needOverlay = true;
 
         public bool IsActive => _isShowing;
+        public bool NeedOverlay => _needOverlay;
 
         public MenuTypeEnumerators MenuType => _menuType;
 
@@ -37,12 +39,10 @@ namespace Balthazariy.UI
         {
             _isShowing = false;
 
-            ShowPage();
-
             OnHideEvent?.Invoke();
 
             SelfObject.transform.localPosition = new Vector3(0, 0, 0);
-            SelfObject.transform.DOLocalMoveY(SelfObject.transform.position.y - (Screen.height / 2), 0.5f);
+            SelfObject.transform.DOLocalMoveY(SelfObject.transform.position.y - (Screen.height / 2), 0.5f).OnComplete(() => ShowPage());
         }
 
 
