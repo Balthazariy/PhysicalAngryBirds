@@ -39,7 +39,7 @@ namespace Balthazariy.UI.Pages
 
         private void SettingsButtonOnClickHandler()
         {
-
+            InvokeScreenChange(MenuTypeEnumerators.SettingsPopup);
         }
 
         #endregion

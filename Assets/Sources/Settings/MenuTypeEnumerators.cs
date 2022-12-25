@@ -16,6 +16,7 @@ namespace Balthazariy.Settings
         GameOverPopup,
         SettingsPopup,
         BallParametersPopup,
+        PausePopup,
 
         #endregion
     }

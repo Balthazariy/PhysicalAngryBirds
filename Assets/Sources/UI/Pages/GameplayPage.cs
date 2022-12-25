@@ -20,7 +20,7 @@ namespace Balthazariy.UI
         #region Button Handlers
         private void PauseButtonOnClickHandler()
         {
-            InvokeScreenChange(Settings.MenuTypeEnumerators.MainPage);
+            InvokeScreenChange(Settings.MenuTypeEnumerators.PausePopup);
         }
         #endregion
     }

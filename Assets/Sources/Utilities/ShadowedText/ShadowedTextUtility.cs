@@ -1,41 +1,41 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Balthazariy.Utilities
 {
     public class ShadowedTextUtility : MonoBehaviour
     {
-        private GameObject _shadowedTextObject;
-        private TextMeshProUGUI _shadowedText;
-
-        private GameObject _textObject;
-        private TextMeshProUGUI _text;
-
         #region Settings
         [Header("GENERAL SETTINGS")]
         [TextArea()]
         [SerializeField] private string _textValue;
         [SerializeField] private TMP_FontAsset _fontAsset;
+        [SerializeField] private FontStyles _fontStyles;
         [SerializeField] private TextAlignmentOptions _alignmentOptions;
         [SerializeField] private bool _autoSize = true;
         [Space(5)]
         [SerializeField] private float _textSizeMax = 12;
         [SerializeField] private float _textSizeMin = 12;
         [Space(5)]
+        [Header("SPECIFIC SETTINGS")]
         [SerializeField] private bool _changeRootObjectName = true;
+        [SerializeField] private bool _isButtonTitleText;
+        [SerializeField] private Button _button;
+        [SerializeField] private bool _isRaycast = false;
 
         [Space(5)]
         [Header("FONTS SETTINGS")]
         [SerializeField] private Color _mainColor;
         [SerializeField] private Color _shadowColor;
-
+        [SerializeField] private bool _isChangeOffset = false;
         [SerializeField] private Vector3 _shadowOffset;
         [Range(0, 1)]
-        [SerializeField] private float _shadowThickness;
+        [SerializeField] private float _shadowThickness = 0.5f;
+        [SerializeField] private bool _isWrapping = false;
         #endregion
 
         private bool _initialize;
-
 
         #region Editor Methods
         public void InitTextInEditor()
@@ -52,61 +52,70 @@ namespace Balthazariy.Utilities
 
         public void RemoveTextInEditor()
         {
-            for (int i = 0; i < _shadowedTextObject.transform.childCount; i++)
-                DestroyImmediate(_shadowedTextObject.transform.GetChild(i).gameObject);
+            var childs = transform.childCount;
+            for (var i = childs - 1; i >= 0; i--)
+            {
+                DestroyImmediate(transform.GetChild(i).gameObject);
+            }
 
-            DestroyImmediate(_shadowedText);
+            if (gameObject.TryGetComponent<TextMeshProUGUI>(out TextMeshProUGUI text))
+                DestroyImmediate(text);
 
             _initialize = false;
         }
 
         public void ReinitTextInEditor()
         {
-            if (_initialize)
-                RemoveTextInEditor();
-
-            InitMainText();
-
-            InitShadowText();
-
-            _initialize = true;
+            InitTextInEditor();
         }
         #endregion
 
         #region Initialize
         private void InitMainText() // this is main text but in the same time it's shadow text...
         {
-            _shadowedTextObject = this.gameObject;
-            _shadowedText = _shadowedTextObject.AddComponent<TextMeshProUGUI>();
+            var shadowedTextObject = this.gameObject;
+            TextMeshProUGUI shadowedText = null;
+            if (shadowedTextObject.TryGetComponent<TextMeshProUGUI>(out TextMeshProUGUI text))
+                shadowedText = text;
+            else
+                shadowedText = shadowedTextObject.AddComponent<TextMeshProUGUI>();
 
             if (_changeRootObjectName)
-                _shadowedTextObject.name = "Text_Shadowed";
+                shadowedTextObject.name = "Text_Shadowed";
 
-            _shadowedTextObject.transform.localPosition = _shadowOffset;
+            if (_isChangeOffset)
+                shadowedTextObject.transform.localPosition = _shadowOffset;
 
-            _shadowedText.color = _shadowColor;
-            SetupFontSettings(_shadowedText);
+            shadowedText.color = _shadowColor;
+            SetupFontSettings(shadowedText);
 
-            _shadowedText.outlineWidth = _shadowThickness;
-            _shadowedText.outlineColor = _shadowColor;
+            shadowedText.outlineWidth = _shadowThickness;
+            shadowedText.outlineColor = _shadowColor;
+            shadowedText.raycastTarget = false;
         }
 
         private void InitShadowText() // this is main text that showed above shadow
         {
-            _textObject = new GameObject("Text_Main");
-            _textObject.transform.parent = _shadowedTextObject.transform;
-            _textObject.transform.localScale = Vector3.one;
-            _textObject.transform.localPosition = _shadowOffset * -1;
+            var textObject = new GameObject("Text_Main");
+            textObject.transform.parent = gameObject.transform;
+            textObject.transform.localScale = Vector3.one;
+            textObject.transform.localPosition = _shadowOffset * -1;
 
-            var rectTransform = _textObject.AddComponent<RectTransform>();
+            var shadowRectTransform = gameObject.GetComponent<RectTransform>();
+            var rectTransform = textObject.AddComponent<RectTransform>();
             rectTransform.anchorMin = Vector2.zero;
             rectTransform.anchorMax = Vector2.one;
+            rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, shadowRectTransform.rect.width);
+            rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, shadowRectTransform.rect.height);
 
-            rectTransform.sizeDelta = _shadowedTextObject.GetComponent<RectTransform>().sizeDelta;
+            var text = textObject.AddComponent<TextMeshProUGUI>();
+            text.color = _mainColor;
+            SetupFontSettings(text);
 
-            _text = _textObject.AddComponent<TextMeshProUGUI>();
-            _text.color = _mainColor;
-            SetupFontSettings(_text);
+            if (_isButtonTitleText)
+                _button.targetGraphic = text;
+
+            text.raycastTarget = _isRaycast;
         }
 
         private void SetupFontSettings(TextMeshProUGUI targetText)
@@ -117,6 +126,8 @@ namespace Balthazariy.Utilities
             targetText.fontSizeMax = _textSizeMax;
             targetText.fontSizeMin = _textSizeMin;
             targetText.font = _fontAsset;
+            targetText.fontStyle = _fontStyles;
+            targetText.enableWordWrapping = _isWrapping;
         }
         #endregion
     }
