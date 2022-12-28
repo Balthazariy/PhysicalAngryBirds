@@ -67,6 +67,7 @@ namespace Balthazariy.Utilities
                     text.raycastTarget = true;
                 }
             }
+            Debug.Log("Complete!!!");
         }
     }
 }
